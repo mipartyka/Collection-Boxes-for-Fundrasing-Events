@@ -33,7 +33,7 @@ Fundraising event name Amount Currency
 Charity One 2048.00 EUR
 All for hope 512.64 GBP
 
-Non-functional requirements
+# Non-functional requirements
 1. Crete only the backend part (no UI is required).
 2. The application should expose a REST API.
 3. Use Java programming language and Spring Framework.
