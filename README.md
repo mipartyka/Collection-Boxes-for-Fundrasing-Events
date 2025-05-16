@@ -33,7 +33,7 @@ Charity One 2048.00 EUR
 All for hope 512.64 GBP
 
 # Non-functional requirements
-1. Crete only the backend part (no UI is required).
+1. Create only the backend part (no UI is required).
 2. The application should expose a REST API.
 3. Use Java programming language and Spring Framework.
 4. Use Maven or Gradle.
