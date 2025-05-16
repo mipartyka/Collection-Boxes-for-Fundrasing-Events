@@ -1,5 +1,4 @@
-Create an application for managing collection boxes during fundrising events for charity organiza-
-tions.
+## Create an application for managing collection boxes during fundrising events for charity organizations.
 
 # Functional requirements
 1. Every collection box should have a unique identifier.
