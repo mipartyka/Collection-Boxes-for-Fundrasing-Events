@@ -1,9 +1,17 @@
 package com.task.collectionboxesforfundraisingevents.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class FundraisingEventAccount {
     @Id
@@ -13,5 +21,5 @@ public class FundraisingEventAccount {
     @JoinColumn(name = "fundraising_event_id")
     private FundraisingEvent fundraisingEvent;
     @Column(precision = 19, scale = 4, nullable = false)
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 }

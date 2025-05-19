@@ -17,7 +17,7 @@ public class CollectionBoxController implements CollectionBoxControllerApi {
 
     @Override
     public ResponseEntity registerCollectionBox() {
-        collectionBoxService.registerCollectionBox();
+        collectionBoxService.createCollectionBox();
         return ResponseEntity.ok().build();
     }
 

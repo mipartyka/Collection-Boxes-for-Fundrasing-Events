@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CollectionBoxService {
-    void registerCollectionBox();
+    void createCollectionBox();
 
     List<CollectionBox> getAllCollectionBoxes();
 
