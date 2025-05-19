@@ -15,7 +15,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     private final RestTemplate restTemplate;
 
     @Value("${exchange.api.key}")
-    private String key;
+    private String apiKey;
 
     public ExchangeServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -25,7 +25,7 @@ public class ExchangeServiceImpl implements ExchangeService {
     public BigDecimal getExchangeRate(String inputCurrency, String outputCurrency) {
         String url = String.format(
                 "https://api.exchangerate.host/live?access_key=%s&source=%s&currencies=%s",
-                key, inputCurrency.toUpperCase(), outputCurrency.toUpperCase());
+                apiKey, inputCurrency.toUpperCase(), outputCurrency.toUpperCase());
 
         ResponseEntity<ExchangeResponseDto> response = restTemplate.getForEntity(url, ExchangeResponseDto.class);
 
