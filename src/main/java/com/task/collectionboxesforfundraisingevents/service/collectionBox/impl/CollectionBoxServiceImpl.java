@@ -10,6 +10,7 @@ import com.task.collectionboxesforfundraisingevents.repository.FundraisingEventA
 import com.task.collectionboxesforfundraisingevents.repository.FundraisingEventRepository;
 import com.task.collectionboxesforfundraisingevents.service.collectionBox.CollectionBoxService;
 import com.task.collectionboxesforfundraisingevents.service.collectionBox.dto.CollectionBoxDto;
+import com.task.collectionboxesforfundraisingevents.service.exchange.ExchangeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +30,7 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
     private final FundraisingEventRepository fundraisingEventRepository;
     private final CollectionBoxContentRepository collectionBoxContentRepository;
     private final FundraisingEventAccountRepository fundraisingEventAccountRepository;
+    private final ExchangeService exchangeService;
 
     public CollectionBoxDto createCollectionBox() {
         return new CollectionBoxDto(collectionBoxRepository.save(new CollectionBox()));
@@ -114,16 +115,7 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
         if(Objects.equals(inputCurrency, outputCurrency))
             return amount;
 
-        // Hardcoded for EUR as base TODO: online API with exchange rates
-        Map<String, BigDecimal> toEUR = Map.of(
-                "EUR", BigDecimal.valueOf(1.0),
-                "USD", BigDecimal.valueOf(0.85),
-                "GBP", BigDecimal.valueOf(1.15)
-        );
-
-        BigDecimal amountInEUR = amount.divide(toEUR.get(inputCurrency), 4, RoundingMode.HALF_UP);
-        BigDecimal outputRate = toEUR.get(outputCurrency);
-
-        return amountInEUR.multiply(outputRate).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal exchangeRate = exchangeService.getExchangeRate(inputCurrency, outputCurrency);
+        return amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP);
     }
 }
