@@ -1,14 +1,14 @@
 package com.task.collectionboxesforfundraisingevents.service.collectionBox;
 
-import com.task.collectionboxesforfundraisingevents.entity.CollectionBox;
+import com.task.collectionboxesforfundraisingevents.service.collectionBox.dto.CollectionBoxDto;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface CollectionBoxService {
-    void createCollectionBox();
+    CollectionBoxDto createCollectionBox();
 
-    List<CollectionBox> getAllCollectionBoxes();
+    List<CollectionBoxDto> getAllCollectionBoxes();
 
     void removeCollectionBox(Integer id);
 
@@ -16,5 +16,5 @@ public interface CollectionBoxService {
 
     void addMoneyToCollectionBox(Integer collectionBoxId, String currency, BigDecimal amount);
 
-    void transferMoneyToFundraisingEvent(Integer collectionBoxId, Integer fundraisingEventId);
+    void transferMoneyToFundraisingEvent(Integer collectionBoxId);
 }

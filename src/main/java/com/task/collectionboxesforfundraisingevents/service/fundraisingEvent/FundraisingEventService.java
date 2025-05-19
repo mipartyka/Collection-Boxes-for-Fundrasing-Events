@@ -1,7 +1,11 @@
 package com.task.collectionboxesforfundraisingevents.service.fundraisingEvent;
 
-public interface FundraisingEventService {
-    void createEvent(String name, String currency);
+import com.task.collectionboxesforfundraisingevents.service.fundraisingEvent.dto.FundraisingEventDto;
 
-    String displayEvents();
+import java.util.List;
+
+public interface FundraisingEventService {
+    FundraisingEventDto createEvent(String name, String currency);
+
+    List<FundraisingEventDto> displayEvents();
 }
