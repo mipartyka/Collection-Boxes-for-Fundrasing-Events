@@ -32,6 +32,6 @@ public class ExchangeServiceImpl implements ExchangeService {
         if(response.getStatusCode().is2xxSuccessful() && !Objects.isNull(response.getBody()))
             return response.getBody().getQuotes().get(inputCurrency.toUpperCase() + outputCurrency.toUpperCase());
         else
-            throw new RuntimeException("Failed to fetch exchange rate");
+            throw new RuntimeException("Failed to fetch exchange rate. Status code: " + response.getStatusCode());
     }
 }
