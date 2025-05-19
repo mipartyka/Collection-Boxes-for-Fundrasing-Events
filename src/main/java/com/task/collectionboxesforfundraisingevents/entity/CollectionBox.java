@@ -21,7 +21,7 @@ public class CollectionBox {
     @JoinColumn(name = "fundraising_event_id")
     private FundraisingEvent fundraisingEvent;
 
-    public boolean IsEmpty() {
+    public boolean isEmpty() {
         return isEmpty;
     }
 }
