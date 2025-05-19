@@ -1,31 +1,31 @@
 package com.task.collectionboxesforfundraisingevents.controller.api.collectionBox;
 
-import com.task.collectionboxesforfundraisingevents.entity.CollectionBox;
+import com.task.collectionboxesforfundraisingevents.service.collectionBox.dto.CollectionBoxDto;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping(value = "/collection-box", produces = MediaType.APPLICATION_JSON_VALUE)
-
 public interface CollectionBoxControllerApi {
     @PostMapping(value = "/register")
-    ResponseEntity registerCollectionBox();
+    ResponseEntity<CollectionBoxDto> registerCollectionBox();
 
     @GetMapping(value = "/list-all")
-    ResponseEntity<List<CollectionBox>> getAllCollectionBoxes();
+    ResponseEntity<List<CollectionBoxDto>> getAllCollectionBoxes();
 
     @DeleteMapping(value = "/unregister")
-    ResponseEntity removeCollectionBox(@RequestParam Integer id);
+    ResponseEntity<Map<String, String>> removeCollectionBox(@RequestParam Integer id);
 
-    @PostMapping(value = "/assign")
-    ResponseEntity assignCollectionBox(@RequestParam Integer collectionBoxId, @RequestParam Integer fundraisingEventId);
+    @PutMapping(value = "/assign")
+    ResponseEntity<Map<String, String>> assignCollectionBox(@RequestParam Integer collectionBoxId, @RequestParam Integer fundraisingEventId);
 
     @PutMapping(value = "/add-money")
-    ResponseEntity addMoneyToCollectionBox(@RequestParam Integer collectionBoxId, @RequestParam String currency, @RequestParam BigDecimal amount);
+    ResponseEntity<Map<String, String>> addMoneyToCollectionBox(@RequestParam Integer collectionBoxId, @RequestParam String currency, @RequestParam BigDecimal amount);
 
     @PostMapping(value = "/transfer-to-account")
-    ResponseEntity transferMoneyToFundraisingEvent(@RequestParam Integer collectionBoxId, @RequestParam Integer FundraisingEventId);
+    ResponseEntity<Map<String, String>> transferMoneyToFundraisingEvent(@RequestParam Integer collectionBoxId);
 }
