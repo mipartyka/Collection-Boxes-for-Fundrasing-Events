@@ -1,6 +1,7 @@
 package com.task.collectionboxesforfundraisingevents.controller.api.collectionBox;
 
 import com.task.collectionboxesforfundraisingevents.service.collectionBox.dto.CollectionBoxDto;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +19,14 @@ public interface CollectionBoxControllerApi {
     ResponseEntity<List<CollectionBoxDto>> getAllCollectionBoxes();
 
     @DeleteMapping(value = "/unregister")
-    ResponseEntity<Map<String, String>> removeCollectionBox(@RequestParam Integer id);
+    ResponseEntity<Map<String, String>> removeCollectionBox(@RequestParam @NotNull Integer id);
 
     @PutMapping(value = "/assign")
-    ResponseEntity<Map<String, String>> assignCollectionBox(@RequestParam Integer collectionBoxId, @RequestParam Integer fundraisingEventId);
+    ResponseEntity<Map<String, String>> assignCollectionBox(@RequestParam @NotNull Integer collectionBoxId, @RequestParam @NotNull Integer fundraisingEventId);
 
     @PutMapping(value = "/add-money")
-    ResponseEntity<Map<String, String>> addMoneyToCollectionBox(@RequestParam Integer collectionBoxId, @RequestParam String currency, @RequestParam BigDecimal amount);
+    ResponseEntity<Map<String, String>> addMoneyToCollectionBox(@RequestParam @NotNull Integer collectionBoxId, @RequestParam @NotNull String currency, @RequestParam BigDecimal amount);
 
     @PostMapping(value = "/transfer-to-account")
-    ResponseEntity<Map<String, String>> transferMoneyToFundraisingEvent(@RequestParam Integer collectionBoxId);
+    ResponseEntity<Map<String, String>> transferMoneyToFundraisingEvent(@RequestParam @NotNull Integer collectionBoxId);
 }

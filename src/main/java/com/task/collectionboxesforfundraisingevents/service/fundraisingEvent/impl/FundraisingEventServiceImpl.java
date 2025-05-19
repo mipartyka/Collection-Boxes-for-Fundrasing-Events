@@ -2,6 +2,7 @@ package com.task.collectionboxesforfundraisingevents.service.fundraisingEvent.im
 
 import com.task.collectionboxesforfundraisingevents.entity.FundraisingEvent;
 import com.task.collectionboxesforfundraisingevents.entity.FundraisingEventAccount;
+import com.task.collectionboxesforfundraisingevents.model.Currency;
 import com.task.collectionboxesforfundraisingevents.repository.FundraisingEventRepository;
 import com.task.collectionboxesforfundraisingevents.service.fundraisingEvent.FundraisingEventService;
 import com.task.collectionboxesforfundraisingevents.service.fundraisingEvent.dto.FundraisingEventDto;
@@ -9,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,14 @@ public class FundraisingEventServiceImpl implements FundraisingEventService {
 
     @Transactional
     public FundraisingEventDto createEvent(String name, String currency) {
+        if (name.isEmpty())
+            throw new IllegalArgumentException("Name cannot be empty");
+
+        if (!Currency.isValid(currency))
+            throw new IllegalArgumentException(
+                    "Invalid currency: " + currency + ". Currency must be one of: " + Arrays.toString(Currency.values())
+            );
+
         FundraisingEvent fundraisingEvent = new FundraisingEvent();
         fundraisingEvent.setName(name);
         fundraisingEvent.setCurrency(currency);
