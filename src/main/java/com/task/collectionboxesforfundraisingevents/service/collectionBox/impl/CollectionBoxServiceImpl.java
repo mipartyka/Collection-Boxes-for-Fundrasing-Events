@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -119,20 +116,45 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
                 .findByCollectionBoxId(collectionBoxId)
                 .orElseThrow(() -> new EntityNotFoundException("No contents found for collection box"));
 
-        contentList.forEach(content -> account.setBalance(account.getBalance()
-                .add(calculateExchange(content.getAmount(), content.getCurrency(), event.getCurrency()))));
-
+        account.setBalance(account.getBalance().add(calculateCollectionBoxTotal(contentList, event.getCurrency())));
         collectionBoxContentRepository.deleteAll(contentList);
         box.setIsEmpty(true);
         collectionBoxRepository.save(box);
         fundraisingEventAccountRepository.save(account);
     }
 
-    private BigDecimal calculateExchange(BigDecimal amount, String inputCurrency, String outputCurrency) {
-        if(Objects.equals(inputCurrency, outputCurrency))
-            return amount;
+    private BigDecimal calculateCollectionBoxTotal(List<CollectionBoxContent> contentList, String eventCurrency) {
+        Set<String> currenciesToConvert = new HashSet<>();
 
-        BigDecimal exchangeRate = exchangeService.getExchangeRate(inputCurrency, outputCurrency);
-        return amount.multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP);
+        for (CollectionBoxContent content : contentList)
+            if (!content.getCurrency().equalsIgnoreCase(eventCurrency))
+                currenciesToConvert.add(content.getCurrency());
+
+        Map<String, BigDecimal> exchangeRates;
+        if (currenciesToConvert.isEmpty())
+            exchangeRates = Map.of();
+        else
+            exchangeRates = exchangeService.getExchangeRates(eventCurrency, currenciesToConvert);
+
+        BigDecimal total = BigDecimal.ZERO;
+        for (CollectionBoxContent content : contentList) {
+            String currency = content.getCurrency();
+            BigDecimal amount = content.getAmount();
+
+            if (currency.equalsIgnoreCase(eventCurrency))
+                total = total.add(amount);
+            else {
+                String rateKey = eventCurrency.toUpperCase() + currency.toUpperCase();
+                BigDecimal rate = exchangeRates.get(rateKey);
+
+                if (Objects.isNull(rate))
+                    throw new RuntimeException("Missing exchange rate for: " + rateKey);
+
+                BigDecimal converted = amount.multiply(BigDecimal.ONE.divide(rate, 6, RoundingMode.HALF_UP));
+                total = total.add(converted.setScale(2, RoundingMode.HALF_UP));
+            }
+        }
+
+        return total;
     }
 }
