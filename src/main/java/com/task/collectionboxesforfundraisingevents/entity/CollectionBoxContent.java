@@ -23,5 +23,5 @@ public class CollectionBoxContent {
     @Column(length = 3, nullable = false)
     private String currency;
     @Column(precision = 19, scale = 4, nullable = false)
-    private BigDecimal amount;
+    private BigDecimal amount = BigDecimal.ZERO;
 }

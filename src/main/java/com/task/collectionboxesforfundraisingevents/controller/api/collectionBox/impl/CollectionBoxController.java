@@ -5,6 +5,7 @@ import com.task.collectionboxesforfundraisingevents.service.collectionBox.dto.Co
 import com.task.collectionboxesforfundraisingevents.service.collectionBox.impl.CollectionBoxServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Validated
 @RequiredArgsConstructor
 public class CollectionBoxController implements CollectionBoxControllerApi {
     private final CollectionBoxServiceImpl collectionBoxService;

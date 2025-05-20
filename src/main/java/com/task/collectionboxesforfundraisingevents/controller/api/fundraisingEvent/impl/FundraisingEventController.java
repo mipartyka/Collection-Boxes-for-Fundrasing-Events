@@ -5,11 +5,13 @@ import com.task.collectionboxesforfundraisingevents.service.fundraisingEvent.dto
 import com.task.collectionboxesforfundraisingevents.service.fundraisingEvent.impl.FundraisingEventServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@Validated
 @RequiredArgsConstructor
 public class FundraisingEventController implements FundraisingEventControllerApi {
     private final FundraisingEventServiceImpl fundraisingEventService;
