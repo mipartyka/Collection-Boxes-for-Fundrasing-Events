@@ -106,7 +106,7 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
         CollectionBox box = collectionBoxRepository.findById(collectionBoxId)
                 .orElseThrow(() -> new EntityNotFoundException("Collection box not found"));
 
-        if (box.getIsEmpty())
+        if (box.isEmpty())
             throw new IllegalStateException("Collection box is empty");
 
         if (box.getFundraisingEvent() == null)
