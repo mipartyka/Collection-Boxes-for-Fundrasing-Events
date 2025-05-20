@@ -91,11 +91,11 @@ public class CollectionBoxServiceImpl implements CollectionBoxService {
             CollectionBoxContent newContent = new CollectionBoxContent();
             newContent.setCollectionBox(box);
             newContent.setCurrency(currency);
+            box.setIsEmpty(false);
             collectionBoxRepository.save(box);
             return newContent;
         });
 
-        box.setIsEmpty(false);
         content.setAmount(content.getAmount().add(amount));
         collectionBoxContentRepository.save(content);
     }
