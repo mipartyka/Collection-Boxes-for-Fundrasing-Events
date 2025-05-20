@@ -8,7 +8,7 @@ public enum Currency {
     USD,
     GBP;
 
-    public static Boolean isValid(String currency){
+    public static boolean isValid(String currency){
         return Arrays.stream(Currency.values()).anyMatch(e -> e.name().equalsIgnoreCase(currency));
     }
 }
