@@ -21,7 +21,7 @@ public class FundraisingEventServiceImpl implements FundraisingEventService {
 
     @Transactional
     public FundraisingEventDto createEvent(String name, String currency) {
-        if (name.isEmpty())
+        if (name.trim().isEmpty())
             throw new IllegalArgumentException("Name cannot be empty");
 
         if (!Currency.isValid(currency))
