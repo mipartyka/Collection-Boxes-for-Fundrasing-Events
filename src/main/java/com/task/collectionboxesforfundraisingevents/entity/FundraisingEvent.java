@@ -1,14 +1,12 @@
 package com.task.collectionboxesforfundraisingevents.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "account")
 @Builder
 @Entity
 public class FundraisingEvent {
