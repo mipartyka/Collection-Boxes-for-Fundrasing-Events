@@ -9,7 +9,7 @@ In the repository directory open a new command line and paste and run this comma
 
 ## Step 2 - Run the container
 Once the building process is done, paste and run this command:
-- docker run -p 8080:8080 EXCHANGE_API_KEY={api key provided privately} app
+- docker run -p 8080:8080 -e EXCHANGE_API_KEY={api key provided privately} app
 
 ## Step 3 - Easy endpoint access
 When the container is up and running all of the endpoints will be available under this address:
