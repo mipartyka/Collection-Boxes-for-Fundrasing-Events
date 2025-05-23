@@ -1,7 +1,7 @@
 # INSTRUCTIONS HOW TO RUN THE APP
 
 ## REQUIREMENTS
-- Docker Engine
+- Docker
 
 ## Step 1 - Build the docker image
 In the repository directory open a new command line and paste and run this command:
